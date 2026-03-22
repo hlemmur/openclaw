@@ -215,6 +215,11 @@ chmod +x infra/setup.sh
 
 ## Operational Notes
 
+### Git Commit Policy (Secrets)
+- Do not commit `agents/*/agent/auth-profiles.json` (contains credentials/tokens or auth refs).
+- Keep auth-profile edits local on the host; commit shared routing/model policy in `openclaw.json` instead.
+- Treat `.env`, `.env.enc`, `credentials/`, and `identity/` as sensitive local-only assets.
+
 ### Rotating Secrets
 ```bash
 # 1. Create new .env with fresh keys
