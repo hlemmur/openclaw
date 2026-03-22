@@ -208,6 +208,20 @@
       ],
       "groupPolicy": "allowlist",
       "streaming": "partial"
+    },
+    "discord": {
+      "enabled": true,
+      "token": {
+        "source": "exec",
+        "provider": "sops",
+        "id": "DISCORD_BOT_TOKEN"
+      },
+      "groupPolicy": "allowlist",
+      "guilds": {
+        "1485366320026353676": {
+          "requireMention": false
+        }
+      }
     }
   },
   "gateway": {
