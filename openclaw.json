@@ -219,6 +219,9 @@
       "groupPolicy": "allowlist",
       "guilds": {
         "1485366320026353676": {
+          "users": [
+            "923534944465199155"
+          ],
           "requireMention": false
         }
       }
