@@ -38,6 +38,10 @@
       "openai-codex:default": {
         "provider": "openai-codex",
         "mode": "oauth"
+      },
+      "google:default": {
+        "provider": "google",
+        "mode": "api_key"
       }
     }
   },
@@ -46,7 +50,8 @@
       "model": {
         "primary": "anthropic/claude-opus-4-6",
         "fallbacks": [
-          "anthropic/claude-sonnet-4-6"
+          "anthropic/claude-sonnet-4-6",
+          "google/gemini-2.5-flash"
         ]
       },
       "models": {
@@ -61,6 +66,9 @@
         },
         "openai-codex/gpt-5.4": {
           "alias": "codex"
+        },
+        "google/gemini-2.5-flash": {
+          "alias": "gemini"
         }
       },
       "workspace": "/Users/leka/.openclaw/workspace",
@@ -80,7 +88,8 @@
         "model": {
           "primary": "anthropic/claude-opus-4-6",
           "fallbacks": [
-            "anthropic/claude-sonnet-4-6"
+            "anthropic/claude-sonnet-4-6",
+            "google/gemini-2.5-flash"
           ]
         },
         "subagents": {
@@ -97,7 +106,8 @@
         "model": {
           "primary": "openai-codex/gpt-5.4",
           "fallbacks": [
-            "anthropic/claude-sonnet-4-6"
+            "anthropic/claude-sonnet-4-6",
+            "google/gemini-2.5-flash"
           ]
         },
         "tools": {
@@ -112,7 +122,8 @@
         "model": {
           "primary": "anthropic/claude-opus-4-6",
           "fallbacks": [
-            "anthropic/claude-sonnet-4-6"
+            "anthropic/claude-sonnet-4-6",
+            "google/gemini-2.5-flash"
           ]
         },
         "sandbox": {
