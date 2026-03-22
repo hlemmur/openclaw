@@ -216,6 +216,10 @@
         "provider": "sops",
         "id": "DISCORD_BOT_TOKEN"
       },
+      "dmPolicy": "allowlist",
+      "allowFrom": [
+        "923534944465199155"
+      ],
       "groupPolicy": "allowlist",
       "guilds": {
         "1485366320026353676": {
