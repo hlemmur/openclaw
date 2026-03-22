@@ -27,6 +27,8 @@ update-check.json
 
 # Local backups/snapshots
 openclaw.json.bak*
+__pycache__/
+*.pyc
 
 # Nested workspace git metadata/local state
 workspace/
