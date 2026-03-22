@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.13",
+    "lastTouchedAt": "2026-03-21T11:00:05.295Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-03-20T18:13:42.073Z",
+    "lastRunVersion": "2026.3.13",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "secrets": {
+    "providers": {
+      "default": {
+        "source": "env"
+      },
+      "sops": {
+        "source": "exec",
+        "command": "/usr/local/Cellar/node/24.5.0/bin/node",
+        "args": [
+          "/Users/leka/.openclaw/infra/vault/sops-resolver.js"
+        ],
+        "jsonOnly": true,
+        "passEnv": [
+          "HOME",
+          "SOPS_AGE_KEY_FILE",
+          "OPENCLAW_HOME"
+        ]
+      }
+    }
+  },
+  "auth": {
+    "profiles": {
+      "anthropic:default": {
+        "provider": "anthropic",
+        "mode": "token"
+      },
+      "openai-codex:default": {
+        "provider": "openai-codex",
+        "mode": "oauth"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-opus-4-6",
+        "fallbacks": [
+          "anthropic/claude-sonnet-4-6"
+        ]
+      },
+      "models": {
+        "anthropic/claude-opus-4-6": {
+          "alias": "opus",
+          "params": {
+            "cacheRetention": "long"
+          }
+        },
+        "anthropic/claude-sonnet-4-6": {
+          "alias": "sonnet"
+        },
+        "openai-codex/gpt-5.4": {
+          "alias": "codex"
+        }
+      },
+      "workspace": "/Users/leka/.openclaw/workspace",
+      "sandbox": {
+        "mode": "non-main",
+        "workspaceAccess": "rw",
+        "scope": "session",
+        "docker": {
+          "network": "bridge"
+        }
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "model": {
+          "primary": "anthropic/claude-opus-4-6",
+          "fallbacks": [
+            "anthropic/claude-sonnet-4-6"
+          ]
+        },
+        "subagents": {
+          "allowAgents": [
+            "worker"
+          ]
+        }
+      },
+      {
+        "id": "worker",
+        "name": "Codex Worker",
+        "workspace": "/Users/leka/.openclaw/workspace",
+        "agentDir": "/Users/leka/.openclaw/agents/worker/agent",
+        "model": {
+          "primary": "openai-codex/gpt-5.4",
+          "fallbacks": [
+            "anthropic/claude-sonnet-4-6"
+          ]
+        },
+        "tools": {
+          "profile": "coding"
+        }
+      },
+      {
+        "id": "trixie-group",
+        "name": "Trixie (Group)",
+        "workspace": "/Users/leka/.openclaw/workspace",
+        "agentDir": "/Users/leka/.openclaw/agents/trixie-group/agent",
+        "model": {
+          "primary": "anthropic/claude-opus-4-6",
+          "fallbacks": [
+            "anthropic/claude-sonnet-4-6"
+          ]
+        },
+        "sandbox": {
+          "mode": "off"
+        },
+        "tools": {
+          "allow": [
+            "read",
+            "write",
+            "edit",
+            "exec",
+            "process",
+            "web_search",
+            "web_fetch",
+            "image",
+            "memory_search",
+            "memory_get",
+            "cron",
+            "sessions_list",
+            "sessions_history",
+            "sessions_send",
+            "session_status",
+            "subagents",
+            "sessions_spawn",
+            "sessions_yield"
+          ]
+        }
+      }
+    ]
+  },
+  "tools": {
+    "profile": "coding",
+    "web": {
+      "search": {
+        "enabled": true,
+        "provider": "gemini"
+      }
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "main"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "session-memory": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "boot-md": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": {
+        "source": "exec",
+        "provider": "sops",
+        "id": "TELEGRAM_BOT_TOKEN"
+      },
+      "groups": {
+        "-1003705080681": {
+          "requireMention": false,
+          "groupPolicy": "allowlist"
+        }
+      },
+      "groupAllowFrom": [
+        "801195564"
+      ],
+      "groupPolicy": "allowlist",
+      "streaming": "partial"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": {
+        "source": "exec",
+        "provider": "sops",
+        "id": "OPENCLAW_GATEWAY_TOKEN"
+      }
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "contacts.add",
+        "calendar.add",
+        "reminders.add",
+        "sms.send"
+      ]
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    }
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      }
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "trixie-group",
+      "match": {
+        "channel": "telegram",
+        "peer": {
+          "kind": "group",
+          "id": "-1003705080681"
+        }
+      }
+    }
+  ]
+}

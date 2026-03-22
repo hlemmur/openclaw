@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "defaults": {
+    "security": "allowlist",
+    "ask": "on-miss",
+    "askFallback": "deny",
+    "autoAllowSkills": false
+  },
+  "agents": {
+    "*": {
+      "security": "allowlist",
+      "ask": "on-miss",
+      "askFallback": "deny",
+      "autoAllowSkills": false,
+      "allowlist": [
+        { "pattern": "/usr/bin/git" },
+        { "pattern": "/bin/ls" },
+        { "pattern": "/bin/mkdir" },
+        { "pattern": "/bin/cp" },
+        { "pattern": "/bin/mv" },
+        { "pattern": "/bin/date" },
+        { "pattern": "/usr/bin/diff" },
+        { "pattern": "/usr/bin/stat" }
+      ]
+    },
+    "main": {
+      "security": "allowlist",
+      "ask": "on-miss",
+      "askFallback": "deny",
+      "autoAllowSkills": false,
+      "allowlist": [
+        { "pattern": "/usr/bin/git" },
+        { "pattern": "/bin/ls" },
+        { "pattern": "/bin/mkdir" },
+        { "pattern": "/bin/cp" },
+        { "pattern": "/bin/mv" },
+        { "pattern": "/bin/date" },
+        { "pattern": "/usr/bin/diff" },
+        { "pattern": "/usr/bin/stat" }
+      ]
+    }
+  }
+}

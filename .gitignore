@@ -1,0 +1,35 @@
+.DS_Store
+
+# Secrets / credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+.env.enc
+credentials/
+identity/
+agents/**/auth-profiles.json
+agents/**/sessions/
+
+# Runtime/local state
+logs/
+memory/
+sandbox/
+subagents/
+delivery-queue/
+devices/
+telegram/
+cron/
+canvas/
+.openclaw/
+exec-approvals.json
+update-check.json
+
+# Local backups/snapshots
+openclaw.json.bak*
+
+# Nested workspace git metadata/local state
+workspace/
+workspace/.git
+workspace/.openclaw/
+workspace/memory/
